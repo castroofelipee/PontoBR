@@ -35,3 +35,22 @@ class RegisterSerializer(serializers.ModelSerializer):
                 password=validated_data["password"],
             )
             return user
+
+
+class LoginSerializer(serializers.Serializer):
+    email = serializers.EmailField()
+    password = serializers.CharField(write_only=True)
+
+    def validate(self, data):
+        from django.contrib.auth import authenticate
+
+        user = authenticate(username=data["email"], password=data["password"])
+        if user and user.is_active:
+            refresh = RefreshToken.for_user(user)
+            return {
+                "refresh": str(refresh),
+                "access": str(refresh.access_token),
+                "user_id": user.id,
+                "email": user.email,
+            }
+        raise serializers.ValidationError("Invalid email or password")
