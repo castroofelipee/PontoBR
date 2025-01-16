@@ -35,4 +35,4 @@ def test_user_registration_password_mismatch():
     }
     response = client.post(url, data)
     assert response.status_code == 400
-    assert 'password' in response.data
+    assert "password" in response.data
