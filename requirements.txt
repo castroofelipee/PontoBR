@@ -1,2 +1,4 @@
 Django
-django_restframewok
+pytest
+pytest-django
+djangorestframework
