@@ -41,4 +41,6 @@ def test_user_login_invalid_credentials(create_user):
     }
     response = client.post(url, data)
     assert response.status_code == 400
-    assert response.data == {"non_field_errors": ["Email ou senha errado. Por favor verifique"]}
+    assert response.data == {
+        "non_field_errors": ["Email ou senha errado. Por favor verifique"]
+    }
